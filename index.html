@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>بلشنا</title>
+    <link rel="stylesheet" href="main.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Tajawal&display=swap" rel="stylesheet">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.16.2/xlsx.full.min.js"></script>
+</head>
+<body>
+
+
+        <button class="change-file" onclick=switchPage();> غير الملف</button>
+    
+        <div class="my-container">
+            <img src="musabaqat.png" alt="">
+            <div class="file-upload">
+                <div class="file-upload-select">
+                    <div class="file-select-button" >اختر مكان الملف</div>
+                <div class="file-select-name">No file chosen...</div> 
+                <input type="file" name="file-upload-input" id="file-upload-input">
+                </div>
+            </div>
+            
+            <!-- <input class="form-control form-control-lg"  id="formFileLg" type="file" accept=".xls,.xlsx"> -->
+            <button class="show-answer" id="convert">طرش</button>
+            
+        </div>
+
+        
+
+        
+    
+        <div class="panel" ondblclick=toggleFullScreen();>
+            
+            <div class="inputs">
+              
+               <button class="btn">بلشنا</button>
+            </div>
+            <div class="questions">
+                
+            </div>
+            <div class="question">
+              
+
+            </div>
+        </div>
+   
+        <script src="app.js"  >
+          
+        </script>
+        
+</body>
+</html>
