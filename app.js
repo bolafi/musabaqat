@@ -313,3 +313,4 @@ data.forEach((ele, i) =>{
 
 
 btn.addEventListener('click', inputValue);
+document.querySelector('.change-screen').addEventListener('click', toggleFullScreen);
