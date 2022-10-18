@@ -58,7 +58,7 @@ document.getElementById('convert').addEventListener("click", () => {
 
 // -------------------------------------------------------------------------------------
 
-const sound = new Audio('countdown.mp3');
+const sound = new Audio('assets/countdown.mp3');
 const inputs = document.querySelector('.inputs');
 const input = document.querySelector('.input');
 const btn = document.querySelector('.btn');
@@ -85,7 +85,7 @@ function switchPage(){
        myContainer.style.visibility = "hidden"
    }
   
-    // myContainer.style.visibility = "hidden" ?  myContainer.style.visibility = "visible" :  myContainer.style.visibility = "hidden"
+   
 }
 
 // --------------  CHECK IF QUIZES STORED IN BROWSER SO NO NEED TO UPLOAD THE QUIZES -----------------------//
@@ -104,9 +104,11 @@ quizExisting();
 function toggleFullScreen() {
     if (!document.fullscreenElement) {
         document.documentElement.requestFullscreen();
+       
         
     } else if (document.exitFullscreen) {
         document.exitFullscreen();
+        return false;
     }
 }
 
@@ -297,17 +299,7 @@ data.forEach((ele, i) =>{
           },{once:true})
      }
      
-    // let b = (checkCrimsons(ele.id))
-    //  if(b){
-    //     console.log('here')
-    //     button.style.backgroundColor = "crimson";
-    //     return
-    // }else{
-
-        
-    // }
-
-
+    
     
 
 })
