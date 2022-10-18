@@ -102,7 +102,7 @@ quizExisting();
 
 // ---------------------------- Switch to Full Screen  ----------------------------- //
 function toggleFullScreen() {
-    if (!document.fullscreenElement) {
+    if (!document.webkitRequestFullScreen) {
         document.documentElement.webkitRequestFullScreen();
        
         
