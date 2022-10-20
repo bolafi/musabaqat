@@ -52,8 +52,11 @@ document.getElementById('convert').addEventListener("click", () => {
         //  document.getElementById("jsondata").innerHTML = obj;
         
     }
-    document.querySelector('.my-container').style.visibility = "hidden";
+    // document.querySelector('.my-container').style.visibility = "hidden";
+    
     }
+    setNames(firstTeam, secondTeam);
+   
 });
 
 // -------------------------------------------------------------------------------------
@@ -65,6 +68,12 @@ const btn = document.querySelector('.btn');
 const questions = document.querySelector('.questions');
 const test = document.createElement('h2');
 const myContainer = document.querySelector('.my-container')
+const teams = document.querySelector('.teams')
+const firstInput = document.querySelector('#first-team')
+const secondInput = document.querySelector('#second-team')
+let firstTeam;
+let secondTeam;
+let error = false
 test.style.visibility = "hidden"
 let remainingTime;
 let clicked = false;
@@ -179,6 +188,40 @@ function stopWatch(){
     }
      
 }
+
+//------------------ Teams -------------------------------//
+function setNames(f,s){
+    if(f === undefined || s === undefined){
+       console.log(f)
+       showAlert('ضيف الاسامي يا كابتن')
+       error = true
+    }else{
+        f = firstInput.value;
+        s = secondInput.value;
+         console.log('first',f,'second', s)
+        
+    }
+  
+   
+}
+
+function showAlert(msg){
+    if(error === false){
+        const warning = document.createElement('div');
+        warning.className = 'warning'
+        warning.appendChild(document.createTextNode(msg))
+        teams.before(warning)
+
+    setTimeout(() => {
+       
+       document.querySelector('.warning').remove()
+       error = false
+    }, 3000);
+    }
+        
+}
+
+
 
 
 

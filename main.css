@@ -111,8 +111,47 @@ body{
 }
 
 
+/* TEAMS */
+.teams{
+    height: 250px;
+    width: 60%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    color: #fff;
+}
+
+.teams label{
+    font-size: 1.6rem;
+    font-weight: bold;
+}
+
+.warning{
+    background-color: crimson;
+    border: 3px solid #fff;
+    color: #fff;
+    width: 500px;
+    height: 70px;
+    border-radius: 12px;
+    font-size: 2rem;
+    font-weight: bold;
+    text-align: center;
+    padding: 0.5rem;
+    margin-bottom: -50px;
+
+}
 
 
+
+
+.teams #first-team,
+.teams #second-team{
+    border: none;
+    border-radius: 5px;
+    padding: 0.5rem;
+    margin: 0 0.5rem;
+
+}
  
 
 
