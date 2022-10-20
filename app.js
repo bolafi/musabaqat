@@ -88,6 +88,14 @@ function switchPage(){
    
 }
 
+
+// --------------  RESET -----------------------//
+
+function clearCrimsons(){
+    localStorage.removeItem('crimsons');
+    location.reload()
+}
+
 // --------------  CHECK IF QUIZES STORED IN BROWSER SO NO NEED TO UPLOAD THE QUIZES -----------------------//
 function quizExisting(){
     if(localStorage.getItem('quiz')){
@@ -110,6 +118,9 @@ function toggleFullScreen() {
         document.exitFullscreen();
         return false;
     }
+
+
+   
 }
 
 
@@ -183,7 +194,7 @@ function stopWatch(){
 
 
 //------------------ DISPLAY   QUESTIOINS -------------------------------//
-function showQuestion(quiz,sec, answer){
+function showQuestion(quiz,sec, answer, img){
 
     test.innerHTML = "";
     test.style.visibility = "hidden"
@@ -204,12 +215,15 @@ function showQuestion(quiz,sec, answer){
 
     
     question.appendChild(timer);
+    const image = document.createElement('img');
     const qa = document.createElement('h2');
     // const an = document.createElement('h2');
     const back = document.createElement('button');
-    const show = document.createElement('button')
+    const show = document.createElement('button');
+    image.setAttribute('src', "https://m.media-amazon.com/images/I/51fWOBx3agL._AC_.jpg")
     qa.appendChild(document.createTextNode(quiz));
     test.appendChild(document.createTextNode(answer))
+    question.appendChild(image)
     question.appendChild(qa);
     question.appendChild(test)
     back.appendChild(document.createTextNode('ارجع'));
