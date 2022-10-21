@@ -195,7 +195,7 @@ function stopWatch(){
 
 //------------------ DISPLAY   QUESTIOINS -------------------------------//
 function showQuestion(quiz,sec, answer, img){
-
+    img? img : img = "assets/musabaqat.png";
     test.innerHTML = "";
     test.style.visibility = "hidden"
     
@@ -215,13 +215,15 @@ function showQuestion(quiz,sec, answer, img){
 
     
     question.appendChild(timer);
-    const image = document.createElement('img');
+    const image = document.createElement("img");
     const qa = document.createElement('h2');
     // const an = document.createElement('h2');
     const back = document.createElement('button');
     const show = document.createElement('button');
-    image.setAttribute('src', "https://m.media-amazon.com/images/I/51fWOBx3agL._AC_.jpg")
+    image.setAttribute('src', `${img}`)
+    image.className = "q-img"
     qa.appendChild(document.createTextNode(quiz));
+    qa.className = "q"
     test.appendChild(document.createTextNode(answer))
     question.appendChild(image)
     question.appendChild(qa);
@@ -277,15 +279,37 @@ function checkCrimsons(ele){
 }
 
 
-//------------------ GENERATE   QUESTIOINS -------------------------------//
+//------------------ GENERATE  & SHUFFLE QUESTIOINS -------------------------------//
 
 function inputValue(){
 
 let data =   JSON.parse(localStorage.getItem('quiz'));  
 
 
+function shuffle(array) {
+    var currentIndex = array.length, temporaryValue, randomIndex;
+
+  // While there remain elements to shuffle...
+  while (0 !== currentIndex) {
+
+    // Pick a remaining element...
+    randomIndex = Math.floor(Math.random() * currentIndex);
+    currentIndex -= 1;
+
+    // And swap it with the current element.
+    temporaryValue = array[currentIndex];
+    array[currentIndex] = array[randomIndex];
+    array[randomIndex] = temporaryValue;
+  }
+
+
+    return array;
+}
+const shuffledArray = shuffle(data)
+
+
     
-data.forEach((ele, i) =>{
+shuffledArray.forEach((ele, i) =>{
     // console.log(ele.id)
     const button = document.createElement('button');
      button.className = "box";
@@ -302,7 +326,7 @@ data.forEach((ele, i) =>{
         button.addEventListener('click', () => {
        
             questions.style.visibility= "hidden";
-             showQuestion(ele.description, ele.duration, ele.answer)
+             showQuestion(ele.description, ele.duration, ele.answer, ele.img)
              setTimer(ele.duration);
             
             
