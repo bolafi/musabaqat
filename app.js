@@ -192,6 +192,7 @@ function stopWatch(){
 //------------------ Teams -------------------------------//
 function setNames(f,s){
     if(f === undefined || s === undefined){
+        console.log(firstInput.value)
        console.log(f)
        showAlert('ضيف الاسامي يا كابتن')
        error = true
