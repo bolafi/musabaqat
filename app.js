@@ -124,6 +124,8 @@ function switchPage(){
 
 function clearCrimsons(){
     localStorage.removeItem('crimsons');
+    localStorage.removeItem('fScore')
+    localStorage.removeItem('sScore')
     location.reload()
 }
 
