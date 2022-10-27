@@ -10,7 +10,8 @@ fileInput.onchange = function() {
 }
 
 
-
+const firstInput = document.querySelector('#first-team').value;
+const secondInput = document.querySelector('#second-team').value;
 
 
 // -------------- THIS CODE TO CONVERT THE EXCEL FILE TO JSON -----------------------//
@@ -52,8 +53,11 @@ document.getElementById('convert').addEventListener("click", () => {
         //  document.getElementById("jsondata").innerHTML = obj;
         
     }
-    document.querySelector('.my-container').style.visibility = "hidden";
+    // document.querySelector('.my-container').style.visibility = "hidden";
+    
     }
+    setNames();
+   
 });
 
 // -------------------------------------------------------------------------------------
@@ -65,6 +69,22 @@ const btn = document.querySelector('.btn');
 const questions = document.querySelector('.questions');
 const test = document.createElement('h2');
 const myContainer = document.querySelector('.my-container')
+const teams = document.querySelector('.teams')
+
+let firstTeamName = document.querySelector('#first-team-label');
+let secondTeamName = document.querySelector('#second-team-label');
+const firstTeamInput = document.querySelector('#first-team-input')
+const secondTeamInput = document.querySelector('#second-team-input');
+const firstScore = document.querySelector('.first-score')
+const secondScore = document.querySelector('.second-score')
+const firstTeamAdd = document.querySelector('.first-team-add')
+const firstTeamUndo = document.querySelector('.first-team-undo');
+const secondTeamAdd = document.querySelector('.second-team-add')
+const secondTeamUndo = document.querySelector('.second-team-undo'); 
+let fScore = [];
+let sScore = []
+const names = document.querySelector('.names')
+let error = false
 test.style.visibility = "hidden"
 let remainingTime;
 let clicked = false;
@@ -75,6 +95,17 @@ if(localStorage.getItem('crimsons')){
     crimsons = [];
 }
 
+
+if(localStorage.getItem('first-name') && localStorage.getItem('second-name')){
+    firstTeamName.textContent  = JSON.parse(localStorage.getItem('first-name'))
+    secondTeamName.textContent  = JSON.parse(localStorage.getItem('second-name'))
+   
+}else{
+    firstTeamName.textContent  = "الاول"
+    secondTeamName.textContent  = "الثاني"
+}
+
+UPDATE();
 // --------------  SWITCH BETWEEN PAGES -----------------------//
 
 function switchPage(){
@@ -190,6 +221,202 @@ function stopWatch(){
     }
      
 }
+
+//------------------ Teams -------------------------------//
+function setNames(){
+    const firstInput = document.querySelector('#first-team').value;
+    const secondInput = document.querySelector('#second-team').value;
+    
+    if(firstInput.length < 1|| secondInput.length < 1){
+       console.log(firstInput,secondInput)
+       showAlert('ضيف الاسامي يا كابتن')
+       error = true
+    }else{
+        localStorage.setItem('first-name', JSON.stringify(firstInput))
+        localStorage.setItem('second-name', JSON.stringify(secondInput))
+        firstTeamName.textContent = firstInput;
+        secondTeamName.textContent = secondInput
+        console.log(firstTeamName, secondTeamName)
+        
+    }
+  
+   
+}
+
+//------------------ SCORES -------------------------------//
+
+
+
+  function UPDATE(){
+    if(localStorage.getItem('fScore') && localStorage.getItem('sScore')){
+        fScore = JSON.parse(localStorage.getItem('fScore'))
+        sScore = JSON.parse(localStorage.getItem('sScore'))
+    }else{
+        fScore = [];
+        sScore = []
+    }
+
+    let sum = 0;
+    fScore.forEach(item =>{
+      sum = sum + item
+    })
+
+    let sum2 = 0;
+    sScore.forEach(item =>{
+      sum2 = sum2 + item
+    })
+ 
+    localStorage.setItem('fScore', JSON.stringify(fScore))
+    localStorage.setItem('sScore', JSON.stringify(sScore))
+     firstTeamInput.value = 0;
+     secondTeamInput.value = 0;
+     firstScore.textContent = sum;
+     secondScore.textContent = sum2;
+  }
+
+  
+
+  function firstTeam(){
+    if(localStorage.getItem('fScore') ){
+        fScore = JSON.parse(localStorage.getItem('fScore'))
+    }else{
+        fScore = [];
+    }
+
+    if(parseInt(firstTeamInput.value) !== 0){
+     console.log('here')
+
+       
+        fScore.push(parseInt(firstTeamInput.value));
+   
+        let sum = 0;
+       fScore.forEach(item =>{
+         sum = sum + item
+       })
+    
+       localStorage.setItem('fScore', JSON.stringify(fScore))
+        firstTeamInput.value = 0;
+        firstScore.textContent = sum;
+     }
+
+   
+ }
+  
+
+ function secondTeam(){
+    if(localStorage.getItem('sScore') ){
+        sScore = JSON.parse(localStorage.getItem('sScore'))
+    }else{
+        sScore = [];
+    }
+
+    if(parseInt(secondTeamInput.value) !== 0){
+    sScore.push(parseInt(secondTeamInput.value));
+   
+    let sum = 0;
+   sScore.forEach(item =>{
+     sum = sum + item
+   })
+
+   localStorage.setItem('sScore', JSON.stringify(sScore))
+    secondTeamInput.value = 0;
+    secondScore.textContent = sum;
+   }
+ }
+
+ function firstTeamUpdate(){
+
+    if(localStorage.getItem('fScore') ){
+        fScore = JSON.parse(localStorage.getItem('fScore'))
+    }else{
+        fScore = [];
+    }
+
+
+    if (fScore.length === 0) {
+        console.log('here')
+        return ;
+      }else{
+        fScore.splice(fScore.length - 1, 1);
+        console.log(fScore)
+        let sum = 0;
+        fScore.forEach(item =>{
+          sum = sum + item
+        })
+       
+
+    localStorage.setItem('fScore', JSON.stringify(fScore))
+    firstTeamInput.value = 0;
+    firstScore.textContent = sum;  
+  }
+ }
+  
+
+ function secondTeamUpdate(){
+
+    if(localStorage.getItem('sScore') ){
+        sScore = JSON.parse(localStorage.getItem('sScore'))
+    }else{
+        sScore = [];
+    }
+
+
+    if (sScore.length === 0) {
+        console.log('here')
+        return ;
+      }else{
+        sScore.splice(sScore.length - 1, 1);
+        console.log(sScore)
+        let sum = 0;
+        sScore.forEach(item =>{
+          sum = sum + item
+        })
+       
+
+    localStorage.setItem('sScore', JSON.stringify(sScore))
+    secondTeamInput.value = 0;
+    secondScore.textContent = sum;  
+  }
+ }
+ //------------------ FIRST TEAM -------------------------------//
+ 
+ firstTeamAdd.addEventListener('click', firstTeam  )
+ 
+
+ firstTeamUndo.addEventListener('click', firstTeamUpdate)
+
+ //------------------ SECOND TEAM -------------------------------//
+
+
+ secondTeamAdd.addEventListener('click', secondTeam)
+ 
+
+ secondTeamUndo.addEventListener('click', secondTeamUpdate)
+ 
+  
+
+  //------------------ SCORES -------------------------------//
+
+
+  //------------------ SHOW ALERT -------------------------------//
+
+function showAlert(msg){
+    if(error === false){
+        const warning = document.createElement('div');
+        warning.className = 'warning'
+        warning.appendChild(document.createTextNode(msg))
+        teams.before(warning)
+
+    setTimeout(() => {
+       
+       document.querySelector('.warning').remove()
+       error = false
+    }, 3000);
+    }
+        
+}
+
+
 
 
 
@@ -343,7 +570,9 @@ shuffledArray.forEach((ele, i) =>{
 })
 
 //  input.value ="";
- inputs.style.visibility = "hidden"
+//  inputs.style.visibility = "hidden"
+inputs.style.display = "none";
+names.style.display = "grid"
 
 
 }
