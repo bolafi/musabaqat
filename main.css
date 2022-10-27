@@ -431,14 +431,13 @@ body{
     justify-content: space-around;
     align-items: center;
     font-size: 4rem;
-    /* background-color: #f8da3a; */
+   
     font-family: 'DS-Digital';
 
 }
 
 .score .first-score,
 .score .second-score{
-    /* background-color: blue;
-    border: 2px solid green; */
+  
     margin:0.2rem;
 }
