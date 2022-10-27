@@ -57,6 +57,10 @@ document.getElementById('convert').addEventListener("click", () => {
     
     }
     setNames();
+    if( myContainer.style.visibility === "visible"){
+        myContainer.style.visibility = "hidden";
+    }
+    
    
 });
 
