@@ -1,5 +1,48 @@
 let fileInput = document.getElementById("file-upload-input");
 let fileSelect = document.getElementsByClassName("file-upload-select")[0];
+const sound = new Audio('assets/countdown.mp3');
+const inputs = document.querySelector('.inputs');
+const input = document.querySelector('.input');
+const btn = document.querySelector('.btn');
+const questions = document.querySelector('.questions');
+const answer = document.createElement('h2');
+const panel = document.querySelector('.panel')
+const myContainer = document.querySelector('.my-container')
+const teams = document.querySelector('.teams')
+let firstTeamName = document.querySelector('#first-team-label');
+let secondTeamName = document.querySelector('#second-team-label');
+const firstTeamInput = document.querySelector('#first-team-input')
+const secondTeamInput = document.querySelector('#second-team-input');
+const firstScore = document.querySelector('.first-score')
+const secondScore = document.querySelector('.second-score')
+const firstTeamAdd = document.querySelector('.first-team-add')
+const firstTeamUndo = document.querySelector('.first-team-undo');
+const secondTeamAdd = document.querySelector('.second-team-add')
+const secondTeamUndo = document.querySelector('.second-team-undo'); 
+let fScore = [];
+let sScore = []
+const names = document.querySelector('.names')
+let error = false
+answer.style.visibility = "hidden"
+let remainingTime;
+let clicked = false;
+let crimsons;
+if(localStorage.getItem('crimsons')){
+    crimsons = JSON.parse(localStorage.getItem('crimsons'))
+}else{
+    crimsons = [];
+}
+
+
+if(localStorage.getItem('first-name') && localStorage.getItem('second-name')){
+    firstTeamName.textContent  = JSON.parse(localStorage.getItem('first-name'))
+    secondTeamName.textContent  = JSON.parse(localStorage.getItem('second-name'))
+   
+}else{
+    firstTeamName.textContent  = "الاول"
+    secondTeamName.textContent  = "الثاني"
+}
+
 fileSelect.onclick = function() {
 	fileInput.click();
 }
@@ -56,58 +99,16 @@ document.getElementById('convert').addEventListener("click", () => {
     // document.querySelector('.my-container').style.visibility = "hidden";
     
     }
-    setNames();
-    if( myContainer.style.visibility === "visible"){
-        myContainer.style.visibility = "hidden";
-    }
+    // setNames();
+    // if( myContainer.style.visibility === "visible"){
+    //     myContainer.style.visibility = "hidden";
+    // }
     
    
 });
 
 // -------------------------------------------------------------------------------------
 
-const sound = new Audio('assets/countdown.mp3');
-const inputs = document.querySelector('.inputs');
-const input = document.querySelector('.input');
-const btn = document.querySelector('.btn');
-const questions = document.querySelector('.questions');
-const test = document.createElement('h2');
-const myContainer = document.querySelector('.my-container')
-const teams = document.querySelector('.teams')
-
-let firstTeamName = document.querySelector('#first-team-label');
-let secondTeamName = document.querySelector('#second-team-label');
-const firstTeamInput = document.querySelector('#first-team-input')
-const secondTeamInput = document.querySelector('#second-team-input');
-const firstScore = document.querySelector('.first-score')
-const secondScore = document.querySelector('.second-score')
-const firstTeamAdd = document.querySelector('.first-team-add')
-const firstTeamUndo = document.querySelector('.first-team-undo');
-const secondTeamAdd = document.querySelector('.second-team-add')
-const secondTeamUndo = document.querySelector('.second-team-undo'); 
-let fScore = [];
-let sScore = []
-const names = document.querySelector('.names')
-let error = false
-test.style.visibility = "hidden"
-let remainingTime;
-let clicked = false;
-let crimsons;
-if(localStorage.getItem('crimsons')){
-    crimsons = JSON.parse(localStorage.getItem('crimsons'))
-}else{
-    crimsons = [];
-}
-
-
-if(localStorage.getItem('first-name') && localStorage.getItem('second-name')){
-    firstTeamName.textContent  = JSON.parse(localStorage.getItem('first-name'))
-    secondTeamName.textContent  = JSON.parse(localStorage.getItem('second-name'))
-   
-}else{
-    firstTeamName.textContent  = "الاول"
-    secondTeamName.textContent  = "الثاني"
-}
 
 UPDATE();
 // --------------  SWITCH BETWEEN PAGES -----------------------//
@@ -115,9 +116,11 @@ UPDATE();
 function switchPage(){
    if( myContainer.style.visibility === "hidden"){
     myContainer.style.visibility = "visible";
+    questions.style.display = "none"
    }else {
 
        myContainer.style.visibility = "hidden"
+       questions.style.display = "grid"
    }
   
    
@@ -427,10 +430,10 @@ function showAlert(msg){
 
 
 //------------------ DISPLAY   QUESTIOINS -------------------------------//
-function showQuestion(quiz,sec, answer, img){
+function showQuestion(quiz,sec, ans, img){
     img? img : img = "assets/musabaqat.png";
-    test.innerHTML = "";
-    test.style.visibility = "hidden"
+    answer.innerHTML = "";
+    answer.style.visibility = "hidden"
     
 
     const question = document.querySelector('.question');
@@ -457,10 +460,10 @@ function showQuestion(quiz,sec, answer, img){
     image.className = "q-img"
     qa.appendChild(document.createTextNode(quiz));
     qa.className = "q"
-    test.appendChild(document.createTextNode(answer))
+    answer.appendChild(document.createTextNode(ans))
     question.appendChild(image)
     question.appendChild(qa);
-    question.appendChild(test)
+    question.appendChild(answer)
     back.appendChild(document.createTextNode('ارجع'));
     back.className = "back";
     back.addEventListener('click', backToMenu,{once:true})
@@ -484,7 +487,7 @@ function backToMenu(){
     document.querySelector('.question').innerHTML = "";
     //document.querySelector('#time').innerHTML = "";
     remainingTime = "";
-    test.innerHTML = "";
+    answer.innerHTML = "";
     
     questions.style.visibility= "visible";
 
@@ -492,7 +495,7 @@ function backToMenu(){
 
 
 function displayAnswer(){
-    test.style.visibility = "visible"
+    answer.style.visibility = "visible"
     clicked = true;
     stopCountdown()
     
@@ -575,8 +578,6 @@ shuffledArray.forEach((ele, i) =>{
 
 })
 
-//  input.value ="";
-//  inputs.style.visibility = "hidden"
 inputs.style.display = "none";
 names.style.display = "grid"
 
@@ -584,6 +585,6 @@ names.style.display = "grid"
 }
 
 
-
+document.querySelector('.add-names').addEventListener('click', setNames)
 btn.addEventListener('click', inputValue);
 document.querySelector('.change-screen').addEventListener('click', toggleFullScreen);
