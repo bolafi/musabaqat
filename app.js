@@ -96,13 +96,10 @@ document.getElementById('convert').addEventListener("click", () => {
         //  document.getElementById("jsondata").innerHTML = obj;
         
     }
-    // document.querySelector('.my-container').style.visibility = "hidden";
+    
     
     }
-    // setNames();
-    // if( myContainer.style.visibility === "visible"){
-    //     myContainer.style.visibility = "hidden";
-    // }
+    
     
    
 });
@@ -133,7 +130,11 @@ function clearCrimsons(){
     localStorage.removeItem('crimsons');
     localStorage.removeItem('fScore')
     localStorage.removeItem('sScore')
-    location.reload()
+    firstTeamName.textContent = "";
+    secondTeamName.textContent = ""
+    myContainer.style.visibility = "visible";
+    questions.style.display = "none"
+    // location.reload()
 }
 
 // --------------  CHECK IF QUIZES STORED IN BROWSER SO NO NEED TO UPLOAD THE QUIZES -----------------------//
@@ -183,8 +184,6 @@ function stopCountdown(){
 //------------------ SET TIMER -------------------------------//
 
 function setTimer(sec){
-    console.log('hi')
-    console.log(sec)
     return remainingTime= parseInt(sec);
 }
 
@@ -245,7 +244,7 @@ function setNames(){
         localStorage.setItem('second-name', JSON.stringify(secondInput))
         firstTeamName.textContent = firstInput;
         secondTeamName.textContent = secondInput
-        console.log(firstTeamName, secondTeamName)
+        
         
     }
   
@@ -453,7 +452,6 @@ function showQuestion(quiz,sec, ans, img){
     question.appendChild(timer);
     const image = document.createElement("img");
     const qa = document.createElement('h2');
-    // const an = document.createElement('h2');
     const back = document.createElement('button');
     const show = document.createElement('button');
     image.setAttribute('src', `${img}`)
@@ -485,10 +483,8 @@ function backToMenu(){
     stopCountdown()
     document.querySelector('.question').classList.remove('show');
     document.querySelector('.question').innerHTML = "";
-    //document.querySelector('#time').innerHTML = "";
     remainingTime = "";
     answer.innerHTML = "";
-    
     questions.style.visibility= "visible";
 
 }
@@ -506,7 +502,6 @@ function checkCrimsons(ele){
   if(localStorage.getItem('crimsons')){
     const ids = JSON.parse(localStorage.getItem('crimsons'));
     if(ids.includes(ele)){
-     console.log('pass')
      return true;
     }else{
      return false;
@@ -546,16 +541,13 @@ const shuffledArray = shuffle(data)
 
     
 shuffledArray.forEach((ele, i) =>{
-    // console.log(ele.id)
     const button = document.createElement('button');
      button.className = "box";
      button.appendChild(document.createTextNode(i + 1))
      questions.appendChild(button)
-     console.log(ele.id)
-     console.log(checkCrimsons(ele.id))
+     
 
      if(checkCrimsons(ele.id)){
-        console.log('here')
         button.style.backgroundColor = "crimson";
         return
      }else{

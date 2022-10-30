@@ -5,7 +5,7 @@
 body{
     font-family: 'Tajawal', sans-serif;
     background-color: #482b87;
-   
+    overflow-x: hidden;
 }
 
 .change-file{
@@ -28,6 +28,7 @@ body{
     left: -1%;
     z-index: 1;
     transition: 0.2s ease-in-out ;
+    position: fixed;
 
 }
 
@@ -49,6 +50,7 @@ body{
     display: flex;
     justify-content: center;
     align-items: center;
+    position: fixed;
 }
 
 
@@ -71,6 +73,7 @@ body{
     display: flex;
     justify-content: center;
     align-items: center;
+    position: fixed;
 }
 
 
