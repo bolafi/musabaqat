@@ -34,14 +34,7 @@ if(localStorage.getItem('crimsons')){
 }
 
 
-if(localStorage.getItem('first-name') && localStorage.getItem('second-name')){
-    firstTeamName.textContent  = JSON.parse(localStorage.getItem('first-name'))
-    secondTeamName.textContent  = JSON.parse(localStorage.getItem('second-name'))
-   
-}else{
-    firstTeamName.textContent  = "الاول"
-    secondTeamName.textContent  = "الثاني"
-}
+
 
 fileSelect.onclick = function() {
 	fileInput.click();
@@ -90,9 +83,12 @@ document.getElementById('convert').addEventListener("click", () => {
               //document.getElementById("jsondata").innerHTML = JSON.stringify(rowObject,undefined,4)
               temp = JSON.stringify(rowObject,undefined,4)
          });
-
+         myContainer.style.visibility = "hidden"
+         questions.style.display = "grid"
          localStorage.setItem('quiz', temp);
-         var obj = JSON.parse(localStorage.getItem('quiz'));
+         defaultNames();
+
+         //var obj = JSON.parse(localStorage.getItem('quiz'));
         //  document.getElementById("jsondata").innerHTML = obj;
         
     }
@@ -124,12 +120,29 @@ function switchPage(){
 }
 
 
+
+
+function defaultNames(){
+    if(localStorage.getItem('first-name') && localStorage.getItem('second-name')){
+        firstTeamName.textContent  = JSON.parse(localStorage.getItem('first-name'))
+        secondTeamName.textContent  = JSON.parse(localStorage.getItem('second-name'))
+       
+    }else{
+        firstTeamName.textContent  = "الاول"
+        secondTeamName.textContent  = "الثاني"
+    }
+}
+
+
 // --------------  RESET -----------------------//
 
 function clearCrimsons(){
     localStorage.removeItem('crimsons');
     localStorage.removeItem('fScore')
     localStorage.removeItem('sScore')
+    localStorage.removeItem('quiz')
+    localStorage.removeItem('first-name')
+    localStorage.removeItem('second-name')
     firstTeamName.textContent = "";
     secondTeamName.textContent = ""
     myContainer.style.visibility = "visible";
