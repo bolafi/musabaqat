@@ -137,6 +137,7 @@ function defaultNames(){
 // --------------  RESET -----------------------//
 
 function clearCrimsons(){
+    // selectedFile = ""
     localStorage.removeItem('crimsons');
     localStorage.removeItem('fScore')
     localStorage.removeItem('sScore')
@@ -147,7 +148,7 @@ function clearCrimsons(){
     secondTeamName.textContent = ""
     myContainer.style.visibility = "visible";
     questions.style.display = "none"
-    // location.reload()
+     location.reload()
 }
 
 // --------------  CHECK IF QUIZES STORED IN BROWSER SO NO NEED TO UPLOAD THE QUIZES -----------------------//
