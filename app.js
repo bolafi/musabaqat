@@ -6,6 +6,10 @@ const input = document.querySelector(".input");
 const btn = document.querySelector(".btn");
 const questions = document.querySelector(".questions");
 const answer = document.createElement("h2");
+const op1 = document.createElement("div");
+const op2 = document.createElement("div");
+const op3 = document.createElement("div");
+const optionContainer = document.createElement("div");
 const panel = document.querySelector(".panel");
 const myContainer = document.querySelector(".my-container");
 const teams = document.querySelector(".teams");
@@ -345,6 +349,95 @@ function secondTeamUpdate() {
 		secondScore.textContent = sum;
 	}
 }
+
+function answerWithNoOption(quiz, sec, ans, img) {
+	const question = document.querySelector(".question");
+	const timer = document.createElement("div");
+	const start = document.createElement("button");
+	const time = document.createElement("div");
+	timer.id = "timer";
+	start.id = "start";
+	start.addEventListener("click", stopWatch, { once: true });
+	time.id = "time";
+	time.appendChild(document.createTextNode(sec));
+	start.appendChild(document.createTextNode("ابدا"));
+	timer.appendChild(start);
+	timer.appendChild(time);
+
+	question.appendChild(timer);
+	const image = document.createElement("img");
+	const qa = document.createElement("h2");
+	const back = document.createElement("button");
+	const show = document.createElement("button");
+	image.setAttribute("src", `${img}`);
+	image.className = "q-img";
+	qa.appendChild(document.createTextNode(quiz));
+	qa.className = "q";
+
+	answer.appendChild(document.createTextNode(ans));
+	question.appendChild(image);
+	question.appendChild(qa);
+	question.appendChild(answer);
+	back.appendChild(document.createTextNode("ارجع"));
+	back.className = "back";
+	back.addEventListener("click", backToMenu, { once: true });
+	show.appendChild(document.createTextNode("اكشف"));
+	show.className = "show-answer";
+	show.addEventListener("click", displayAnswer, { once: true });
+	question.appendChild(back);
+	question.appendChild(show);
+	question.classList.add("show");
+}
+
+function answerWithOption(quiz, sec, option1, option2, option3, img) {
+	const question = document.querySelector(".question");
+	const timer = document.createElement("div");
+	const start = document.createElement("button");
+	const time = document.createElement("div");
+	timer.id = "timer";
+	start.id = "start";
+	start.addEventListener("click", stopWatch, { once: true });
+	time.id = "time";
+	time.appendChild(document.createTextNode(sec));
+	start.appendChild(document.createTextNode("ابدا"));
+	timer.appendChild(start);
+	timer.appendChild(time);
+
+	question.appendChild(timer);
+	const image = document.createElement("img");
+	const qa = document.createElement("h2");
+	const back = document.createElement("button");
+	const show = document.createElement("button");
+	image.setAttribute("src", `${img}`);
+	image.className = "q-img";
+	qa.appendChild(document.createTextNode(quiz));
+	qa.className = "q";
+
+	op1.appendChild(document.createTextNode(option1));
+	op2.appendChild(document.createTextNode(option2));
+	op3.appendChild(document.createTextNode(option3));
+	op1.className = "options";
+	op2.className = "options";
+	op3.className = "options";
+	// answer.appendChild(document.createTextNode(ans));
+	question.appendChild(image);
+	question.appendChild(qa);
+	optionContainer.className = "oC";
+	optionContainer.appendChild(op1);
+	optionContainer.appendChild(op2);
+	optionContainer.appendChild(op3);
+	question.appendChild(optionContainer);
+	// question.appendChild(answer);
+	back.appendChild(document.createTextNode("ارجع"));
+	back.className = "back";
+	back.addEventListener("click", backToMenu, { once: true });
+	show.appendChild(document.createTextNode("اكشف"));
+	show.className = "show-answer";
+	show.addEventListener("click", displayAnswer, { once: true });
+	question.appendChild(back);
+	question.appendChild(show);
+	question.classList.add("show");
+}
 //------------------ FIRST TEAM -------------------------------//
 
 firstTeamAdd.addEventListener("click", firstTeam);
@@ -376,51 +469,53 @@ function showAlert(msg) {
 }
 
 //------------------ DISPLAY   QUESTIOINS -------------------------------//
-function showQuestion(quiz, sec, ans, img) {
+function showQuestion(quiz, sec, ans, img, option1, option2, option3) {
 	img ? img : (img = "assets/musabaqat.png");
 	answer.innerHTML = "";
 	answer.style.visibility = "hidden";
-
-	const question = document.querySelector(".question");
-	const timer = document.createElement("div");
-	const start = document.createElement("button");
-	const time = document.createElement("div");
-	timer.id = "timer";
-	start.id = "start";
-	start.addEventListener("click", stopWatch, { once: true });
-	time.id = "time";
-	time.appendChild(document.createTextNode(sec));
-	start.appendChild(document.createTextNode("ابدا"));
-	timer.appendChild(start);
-	timer.appendChild(time);
-
-	question.appendChild(timer);
-	const image = document.createElement("img");
-	const qa = document.createElement("h2");
-	const back = document.createElement("button");
-	const show = document.createElement("button");
-	image.setAttribute("src", `${img}`);
-	image.className = "q-img";
-	qa.appendChild(document.createTextNode(quiz));
-	qa.className = "q";
-	if (ans.length === 0) {
-		alert("No answer");
+	if (ans.toLowerCase() === "no") {
+		answerWithOption(quiz, sec, option1, option2, option3, img);
+	} else {
+		answerWithNoOption(quiz, sec, ans, img);
 	}
 
-	answer.appendChild(document.createTextNode(ans));
-	question.appendChild(image);
-	question.appendChild(qa);
-	question.appendChild(answer);
-	back.appendChild(document.createTextNode("ارجع"));
-	back.className = "back";
-	back.addEventListener("click", backToMenu, { once: true });
-	show.appendChild(document.createTextNode("اكشف"));
-	show.className = "show-answer";
-	show.addEventListener("click", displayAnswer, { once: true });
+	// const question = document.querySelector(".question");
+	// const timer = document.createElement("div");
+	// const start = document.createElement("button");
+	// const time = document.createElement("div");
+	// timer.id = "timer";
+	// start.id = "start";
+	// start.addEventListener("click", stopWatch, { once: true });
+	// time.id = "time";
+	// time.appendChild(document.createTextNode(sec));
+	// start.appendChild(document.createTextNode("ابدا"));
+	// timer.appendChild(start);
+	// timer.appendChild(time);
 
-	question.appendChild(back);
-	question.appendChild(show);
-	question.classList.add("show");
+	// question.appendChild(timer);
+	// const image = document.createElement("img");
+	// const qa = document.createElement("h2");
+	// const back = document.createElement("button");
+	// const show = document.createElement("button");
+	// image.setAttribute("src", `${img}`);
+	// image.className = "q-img";
+	// qa.appendChild(document.createTextNode(quiz));
+	// qa.className = "q";
+
+	// answer.appendChild(document.createTextNode(ans));
+	// question.appendChild(image);
+	// question.appendChild(qa);
+	// question.appendChild(answer);
+	// back.appendChild(document.createTextNode("ارجع"));
+	// back.className = "back";
+	// back.addEventListener("click", backToMenu, { once: true });
+	// show.appendChild(document.createTextNode("اكشف"));
+	// show.className = "show-answer";
+	// show.addEventListener("click", displayAnswer, { once: true });
+
+	// question.appendChild(back);
+	// question.appendChild(show);
+	// question.classList.add("show");
 }
 
 //------------------ BACK FUNCTION -------------------------------//
@@ -492,7 +587,15 @@ function inputValue() {
 				"click",
 				() => {
 					questions.style.visibility = "hidden";
-					showQuestion(ele.description, ele.duration, ele.answer, ele.img);
+					showQuestion(
+						ele.description,
+						ele.duration,
+						ele.answer,
+						ele.img,
+						ele.option1,
+						ele.option2,
+						ele.option3
+					);
 					setTimer(ele.duration);
 
 					button.style.transform = "transform: scale(1)";
