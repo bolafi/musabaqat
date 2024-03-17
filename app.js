@@ -389,7 +389,15 @@ function answerWithNoOption(quiz, sec, ans, img) {
 	question.classList.add("show");
 }
 
-function answerWithOption(quiz, sec, option1, option2, option3, img) {
+function answerWithOption(
+	quiz,
+	sec,
+	option1,
+	option2,
+	option3,
+	correctOption,
+	img
+) {
 	const question = document.querySelector(".question");
 	const timer = document.createElement("div");
 	const start = document.createElement("button");
@@ -416,6 +424,9 @@ function answerWithOption(quiz, sec, option1, option2, option3, img) {
 	op1.appendChild(document.createTextNode(option1));
 	op2.appendChild(document.createTextNode(option2));
 	op3.appendChild(document.createTextNode(option3));
+
+	//console.log(op1.innerText);
+	// console.log(typeof correctOption);
 	op1.className = "options";
 	op2.className = "options";
 	op3.className = "options";
@@ -426,6 +437,7 @@ function answerWithOption(quiz, sec, option1, option2, option3, img) {
 	optionContainer.appendChild(op1);
 	optionContainer.appendChild(op2);
 	optionContainer.appendChild(op3);
+	console.log(op3);
 	question.appendChild(optionContainer);
 	// question.appendChild(answer);
 	back.appendChild(document.createTextNode("ارجع"));
@@ -433,7 +445,51 @@ function answerWithOption(quiz, sec, option1, option2, option3, img) {
 	back.addEventListener("click", backToMenu, { once: true });
 	show.appendChild(document.createTextNode("اكشف"));
 	show.className = "show-answer";
-	show.addEventListener("click", displayAnswer, { once: true });
+
+	// function checkCorrect() {
+	// 	if (op1.innerText === correctOption.toString()) {
+	// 		op1.className = "options-correct";
+	// 	} else if (op2.innerText === correctOption.toString()) {
+	// 		op2.className = "options-correct";
+	// 	} else {
+	// 		op3.className = "options-correct";
+	// 	}
+	// }
+	//let op = [];
+	// for (i = 1; i <= 3; i++) {
+	// 	op.push(op`${i}`);
+	// 	console.log(op);
+	// 	// if (`op${1}`.innerText == correctOption.toString()) {
+	// 	// 	console.log(i);
+	// 	// 	console.log(`op${i}`.innerText);
+	// 	// 	console.log(correctOption.toString());
+	// 	// 	`op${i}`.className = "options-correct";
+	// 	// } else {
+	// 	// 	console.log("nah");
+	// 	// 	console.log(i);
+
+	// 	// 	console.log(`op${i}`.innerText);
+	// 	// 	console.log(op2.innerText);
+	// 	// 	console.log(correctOption.toString());
+	// 	// }
+	// }
+	// op.forEach((ele) => {
+	// 	ele.className = "options-correct";
+	// });
+
+	show.addEventListener(
+		"click",
+		function () {
+			if (op1.innerText === correctOption.toString()) {
+				op1.className = "options-correct";
+			} else if (op2.innerText === correctOption.toString()) {
+				op2.className = "options-correct";
+			} else {
+				op3.className = "options-correct";
+			}
+		},
+		{ once: true }
+	);
 	question.appendChild(back);
 	question.appendChild(show);
 	question.classList.add("show");
@@ -469,12 +525,21 @@ function showAlert(msg) {
 }
 
 //------------------ DISPLAY   QUESTIOINS -------------------------------//
-function showQuestion(quiz, sec, ans, img, option1, option2, option3) {
+function showQuestion(
+	quiz,
+	sec,
+	ans,
+	img,
+	option1,
+	option2,
+	option3,
+	correctOption
+) {
 	img ? img : (img = "assets/musabaqat.png");
 	answer.innerHTML = "";
 	answer.style.visibility = "hidden";
 	if (ans.toLowerCase() === "no") {
-		answerWithOption(quiz, sec, option1, option2, option3, img);
+		answerWithOption(quiz, sec, option1, option2, option3, correctOption, img);
 	} else {
 		answerWithNoOption(quiz, sec, ans, img);
 	}
@@ -536,6 +601,11 @@ function displayAnswer() {
 	stopCountdown();
 }
 
+function displayOptionAnswer() {
+	answer.style.visibility = "visible";
+	clicked = true;
+	stopCountdown();
+}
 function checkCrimsons(ele) {
 	if (localStorage.getItem("crimsons")) {
 		const ids = JSON.parse(localStorage.getItem("crimsons"));
@@ -594,7 +664,8 @@ function inputValue() {
 						ele.img,
 						ele.option1,
 						ele.option2,
-						ele.option3
+						ele.option3,
+						ele.correctOption
 					);
 					setTimer(ele.duration);
 
