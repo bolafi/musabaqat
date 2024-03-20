@@ -416,6 +416,7 @@ function answerWithOption(
 	const qa = document.createElement("h2");
 	const back = document.createElement("button");
 	const show = document.createElement("button");
+	const showOptions = document.createElement("button");
 	image.setAttribute("src", `${img}`);
 	image.className = "q-img";
 	qa.appendChild(document.createTextNode(quiz));
@@ -445,37 +446,9 @@ function answerWithOption(
 	back.addEventListener("click", backToMenu, { once: true });
 	show.appendChild(document.createTextNode("اكشف"));
 	show.className = "show-answer";
-
-	// function checkCorrect() {
-	// 	if (op1.innerText === correctOption.toString()) {
-	// 		op1.className = "options-correct";
-	// 	} else if (op2.innerText === correctOption.toString()) {
-	// 		op2.className = "options-correct";
-	// 	} else {
-	// 		op3.className = "options-correct";
-	// 	}
-	// }
-	//let op = [];
-	// for (i = 1; i <= 3; i++) {
-	// 	op.push(op`${i}`);
-	// 	console.log(op);
-	// 	// if (`op${1}`.innerText == correctOption.toString()) {
-	// 	// 	console.log(i);
-	// 	// 	console.log(`op${i}`.innerText);
-	// 	// 	console.log(correctOption.toString());
-	// 	// 	`op${i}`.className = "options-correct";
-	// 	// } else {
-	// 	// 	console.log("nah");
-	// 	// 	console.log(i);
-
-	// 	// 	console.log(`op${i}`.innerText);
-	// 	// 	console.log(op2.innerText);
-	// 	// 	console.log(correctOption.toString());
-	// 	// }
-	// }
-	// op.forEach((ele) => {
-	// 	ele.className = "options-correct";
-	// });
+	showOptions.appendChild(document.createTextNode("خيارات؟"));
+	showOptions.className = "show-options";
+	showOptions.addEventListener("click", displayOptions, { once: true });
 
 	show.addEventListener(
 		"click",
@@ -487,11 +460,13 @@ function answerWithOption(
 			} else {
 				op3.className = "options-correct";
 			}
+			displayOptionAnswer();
 		},
 		{ once: true }
 	);
 	question.appendChild(back);
 	question.appendChild(show);
+	question.appendChild(showOptions);
 	question.classList.add("show");
 }
 //------------------ FIRST TEAM -------------------------------//
@@ -538,6 +513,7 @@ function showQuestion(
 	img ? img : (img = "assets/musabaqat.png");
 	answer.innerHTML = "";
 	answer.style.visibility = "hidden";
+	optionContainer.style.visibility = "hidden";
 	if (ans.toLowerCase() === "no") {
 		answerWithOption(quiz, sec, option1, option2, option3, correctOption, img);
 	} else {
@@ -602,9 +578,12 @@ function displayAnswer() {
 }
 
 function displayOptionAnswer() {
-	answer.style.visibility = "visible";
 	clicked = true;
 	stopCountdown();
+}
+
+function displayOptions() {
+	optionContainer.style.visibility = "visible";
 }
 function checkCrimsons(ele) {
 	if (localStorage.getItem("crimsons")) {
