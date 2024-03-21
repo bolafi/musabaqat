@@ -512,6 +512,9 @@ function showQuestion(
 ) {
 	img ? img : (img = "assets/musabaqat.png");
 	answer.innerHTML = "";
+	op1.innerHTML = "";
+	op2.innerHTML = "";
+	op3.innerHTML = "";
 	answer.style.visibility = "hidden";
 	optionContainer.style.visibility = "hidden";
 	if (ans.toLowerCase() === "no") {
