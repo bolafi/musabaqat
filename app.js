@@ -453,13 +453,19 @@ function answerWithOption(
 	show.addEventListener(
 		"click",
 		function () {
-			if (op1.innerText === correctOption.toString()) {
-				op1.className = "options-correct";
-			} else if (op2.innerText === correctOption.toString()) {
-				op2.className = "options-correct";
-			} else {
-				op3.className = "options-correct";
-			}
+			let array = [];
+			array.push(op1);
+			array.push(op2);
+			array.push(op3);
+
+			array.map((ele) => {
+				console.log(ele);
+				console.log(ele.textContent);
+				if (array.indexOf(ele) + 1 === correctOption) {
+					ele.className = "options-correct";
+					console.log(ele);
+				}
+			});
 			displayOptionAnswer();
 		},
 		{ once: true }
